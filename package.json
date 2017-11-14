@@ -1,5 +1,5 @@
 {
-  "name": "node-docker-info",
+  "name": "system-config",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,7 +13,8 @@
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "fs-extra": "^4.0.2",
-    "systeminformation": "^3.33.1",
-    "tesserarius": "^0.3.2"
+    "iptables": "0.0.4",
+    "systeminformation": "^3.33.1"
+    /*"tesserarius": "^0.3.2"*/
   }
 }
