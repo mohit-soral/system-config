@@ -5,8 +5,6 @@ var bodyParser = require('body-parser');
 var sysinfo = require('systeminformation');
 var fs = require('fs-extra');
 var iptables = require('iptables');
-/*var tesserariusLib = require("tesserarius");
-var tesserarius = new tesserariusLib();*/
 
 var port = 9999;
 var app = express();
@@ -34,6 +32,7 @@ app.get('/proxy', function (req, res) {
     res.send(result);
 });
 
+
 app.post('/proxy', function (req, res) {
     var proxyValues = req.body;
     console.log("proxyValues: " + JSON.stringify(proxyValues));
@@ -51,60 +50,11 @@ app.post('/proxy', function (req, res) {
     res.send();
 });
 
-
-/*const rule = {
-    interface: 'eth0',
-    policy: 'ACCEPT',
-    protocol: 'tcp',
-    destination_port: 22,
-    source: '10.0.10.0/24'
-}
-
-app.post('/createRule', function (req, res) {
-    var rule = req.body;
-    tesserarius.add_rule('FirewallRuleChain', rule, (err) => {
-        if (err) {
-            throw err;
-        }
-    });
-    console.log(rule);
+app.delete('/proxy', function (req, res) {
+    const file = '/etc/profile.d/proxy.sh';
+    fs.removeSync(file)
     res.send();
 });
-
-app.get('/getRules', function (req, res) {
-    var rules = tesserarius.get_rules('FirewallRuleChain', (err, rules) => {
-        if (err) {
-            console.log(err);
-            return [];
-        }
-        return rules;
-    });
-    console.log(rules);
-    res.send(rules);
-});
-
-app.delete('/deleteRule', function (req, res) {
-    var rule = req.body;
-    tesserarius.delete_rule('FirewallRuleChain', rule, (err) => {
-        if (err) {
-            throw err;
-        }
-    });
-    console.log(rule);
-    res.send();
-});
-
-tesserarius.set_policy('FirewallRuleChain', 'DROP', (err) => {
-    if (err) {
-        //console.log(err);
-    }
-});
-
-tesserarius.create_chain('FirewallRuleChain', (err) => {
-    if (err) {
-        //console.log(err);
-    }
-});*/
 
 const ipTablesRuleFormat = {
     in: 'eth0',
