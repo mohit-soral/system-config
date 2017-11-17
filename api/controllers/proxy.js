@@ -7,7 +7,8 @@ const file = '/etc/profile.d/proxy.sh';
 
 module.exports = {
 	getProxy: readSystemProxy,
-	setProxy: setSystemProxy
+	setProxy: setSystemProxy,
+    deleteProxy: deleteSystemProxy
 }
 
 function readSystemProxy (req, res) {
@@ -15,14 +16,11 @@ function readSystemProxy (req, res) {
         'httpProxy': process.env.http_proxy || '',
         'httpsProxy': process.env.https_proxy || ''
     };
-    // console.log("result: " + JSON.stringify(result));
     res.send(result);
 }
 
 function setSystemProxy (req, res) {
-    console.log('In method to read system proxy');
     var proxyValues = req.body;
-    console.log("proxyValues: " + JSON.stringify(proxyValues));
 
     var valueToWrite = '';
     if (proxyValues.httpProxy !== undefined || proxyValues.httpProxy !== '') {
@@ -33,5 +31,10 @@ function setSystemProxy (req, res) {
     }
 
     fs.outputFileSync(file, valueToWrite)
+    res.json({statusMessage: 'OK'});
+}
+
+function deleteSystemProxy (req, res) {
+    fs.removeSync(file)
     res.json({statusMessage: 'OK'});
 }
