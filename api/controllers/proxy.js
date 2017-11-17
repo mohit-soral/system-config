@@ -20,8 +20,9 @@ function readSystemProxy (req, res) {
 }
 
 function setSystemProxy (req, res) {
+    console.log('In method to read system proxy');
     var proxyValues = req.body;
-    // console.log("proxyValues: " + JSON.stringify(proxyValues));
+    console.log("proxyValues: " + JSON.stringify(proxyValues));
 
     var valueToWrite = '';
     if (proxyValues.httpProxy !== undefined || proxyValues.httpProxy !== '') {
@@ -32,5 +33,5 @@ function setSystemProxy (req, res) {
     }
 
     fs.outputFileSync(file, valueToWrite)
-    res.send();
+    res.json({statusMessage: 'OK'});
 }

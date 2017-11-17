@@ -44,6 +44,8 @@ paths:
       responses:
         200:
           description: OK
+          schema:
+            $ref: "#/definitions/SuccessResponse"
         default:
           description: Error
           schema:
@@ -102,6 +104,12 @@ paths:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
+  SuccessResponse:
+    required:
+      - statusMessage
+    properties:
+      statusMessage:
+        type: string
   ProxyDetails:
     required:
       - httpProxy
